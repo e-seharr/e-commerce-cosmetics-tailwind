@@ -1,57 +1,68 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useTheme } from '../../context/ThemeContext';
+import { getLoggedInUser } from '../../utils/authUtils';
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState<{ name: string } | null>(null);
   const { cart } = useCart();
+  const { darkMode, toggleDark } = useTheme();
+  const location = useLocation();
+
+  // Re-check login state on every route change only
+  useEffect(() => {
+    setLoggedIn(getLoggedInUser());
+  }, [location.pathname]);
+
+  const lc = ({ isActive }: { isActive: boolean }) =>
+    `no-underline font-medium text-[14px] transition-colors whitespace-nowrap ${
+      isActive ? 'text-[#ff6b9d]' : 'text-[#1f1f1f] dark:text-[#f5e6ea] hover:text-[#ff6b9d]'
+    }`;
 
   return (
-    <nav className="flex justify-between items-center px-10 py-[15px] bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)] sticky top-0 z-[100]">
-
-      {/* Brand — black text, font-weight 700, matches screenshot exactly */}
-      <Link to="/" className="text-[#1f1f1f] font-bold text-[16px] no-underline hover:text-[#1f1f1f]">
+    <nav className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 bg-white dark:bg-[#2a1020] border-b border-[#ffd6e0] dark:border-[#4a2030] shadow-[0_2px_10px_rgba(0,0,0,0.05)] sticky top-0 z-[100]">
+      <NavLink to="/" end className="text-[#1f1f1f] dark:text-[#f5e6ea] font-semibold text-[18px] no-underline tracking-normal">
         E-commerce Cosmetics Store
-      </Link>
+      </NavLink>
 
-      {/* Hamburger — mobile only */}
-      <button
-        onClick={() => setOpen(!open)}
-        className="md:hidden flex flex-col gap-[5px] cursor-pointer bg-transparent border-none p-1 shadow-none rounded-none mt-0 w-auto hover:bg-transparent hover:shadow-none hover:translate-y-0">
-        <span className="block w-6 h-[2px] bg-[#1f1f1f] rounded-sm"></span>
-        <span className="block w-6 h-[2px] bg-[#1f1f1f] rounded-sm"></span>
-        <span className="block w-6 h-[2px] bg-[#1f1f1f] rounded-sm"></span>
+      <button onClick={() => setOpen(!open)} className="md:hidden flex flex-col gap-[5px] bg-transparent border-none p-1 cursor-pointer" aria-label="Toggle menu">
+        <span className="block w-6 h-[2px] bg-[#1f1f1f] dark:bg-[#f5e6ea] rounded-sm"></span>
+        <span className="block w-6 h-[2px] bg-[#1f1f1f] dark:bg-[#f5e6ea] rounded-sm"></span>
+        <span className="block w-6 h-[2px] bg-[#1f1f1f] dark:bg-[#f5e6ea] rounded-sm"></span>
       </button>
 
-      {/* Nav links */}
-      <ul className={`list-none m-0 p-0 items-center gap-5
-        md:flex
-        ${open
-          ? 'flex flex-col gap-0 absolute top-[60px] left-0 w-full bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1)] py-2.5 z-50'
-          : 'hidden md:flex'
-        }`}>
-        <li className="md:px-0 md:py-0 px-5 py-2.5">
-          <Link to="/" className="no-underline text-[#1f1f1f] font-medium text-[14px] hover:text-[#ff6b9d] transition-colors">Home</Link>
+      <ul className={`list-none m-0 p-0 md:flex items-center gap-3 w-full md:w-auto ${
+        open ? 'flex flex-col gap-2 bg-white dark:bg-[#2a1020] p-4 rounded-[20px] border border-[#ffd6e0] dark:border-[#4a2030] shadow-[0_10px_30px_rgba(0,0,0,0.08)]' : 'hidden md:flex'
+      }`}>
+        <li>
+          <button type="button" onClick={toggleDark}
+            className="rounded-full border border-[#ff6b9d] bg-transparent px-4 py-2 text-[13px] font-semibold text-[#ff6b9d] transition hover:bg-[#ffeff8] dark:border-[#ffd6e0] dark:text-[#ffd6e0] dark:hover:bg-[#3a1828] cursor-pointer w-auto mt-0">
+            {darkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
         </li>
-        <li className="md:px-0 md:py-0 px-5 py-2.5">
-          <Link to="/products" className="no-underline text-[#1f1f1f] font-medium text-[14px] hover:text-[#ff6b9d] transition-colors">Products</Link>
-        </li>
-        <li className="md:px-0 md:py-0 px-5 py-2.5">
-          <Link to="/cart" className="no-underline text-[#1f1f1f] font-medium text-[14px] hover:text-[#ff6b9d] transition-colors">
-            Cart {cart.length > 0 && <span>({cart.length})</span>}
-          </Link>
-        </li>
-        <li className="md:px-0 md:py-0 px-5 py-2.5">
-          <Link to="/contact" className="no-underline text-[#1f1f1f] font-medium text-[14px] hover:text-[#ff6b9d] transition-colors">Contact</Link>
-        </li>
-        <li className="md:px-0 md:py-0 px-5 py-2.5">
-          <Link to="/login" className="no-underline text-[#1f1f1f] font-medium text-[14px] hover:text-[#ff6b9d] transition-colors">Login</Link>
-        </li>
-        <li className="md:px-0 md:py-0 px-5 py-2.5">
-          <Link to="/dashboard" className="no-underline text-[#1f1f1f] font-medium text-[14px] hover:text-[#ff6b9d] transition-colors">Dashboard</Link>
-        </li>
+        <li><NavLink to="/" end className={lc}>Home</NavLink></li>
+        <li><NavLink to="/products" className={lc}>Products</NavLink></li>
+        <li><NavLink to="/cart" className={lc}>Cart {cart.length > 0 && <span className="text-[#ff6b9d] font-bold">({cart.length})</span>}</NavLink></li>
+        <li><NavLink to="/reviews" className={lc}>Reviews</NavLink></li>
+        <li><NavLink to="/teams" className={lc}>Teams</NavLink></li>
+        <li><NavLink to="/contact" className={lc}>Contact</NavLink></li>
+        {loggedIn ? (
+          <>
+            <li><NavLink to="/profile" className={lc}>👤 {loggedIn.name}</NavLink></li>
+            <li><NavLink to="/dashboard" className={lc}>Dashboard</NavLink></li>
+          </>
+        ) : (
+          <>
+            <li><NavLink to="/login" className={lc}>Login</NavLink></li>
+            <li><NavLink to="/profile" className={lc}>Profile</NavLink></li>
+            <li><NavLink to="/dashboard" className={lc}>Dashboard</NavLink></li>
+          </>
+        )}
       </ul>
     </nav>
   );
 }
+
 export default Navbar;

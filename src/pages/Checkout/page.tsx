@@ -26,17 +26,17 @@ function Checkout() {
     navigate('/');
   }
 
-  const inputCls = "w-full px-3 py-2.5 border border-[#ffd6e0] rounded-[6px] font-[Poppins,sans-serif] text-[14px] transition-all outline-none focus:border-[#ff6b8a] focus:shadow-[0_0_0_3px_rgba(255,77,109,0.12)] box-border";
-  const labelCls = "block text-[13px] font-medium mb-1 text-[#444]";
+  const inputCls = "w-full px-3 py-2.5 border border-[#ffd6e0] dark:border-[#4a2030] rounded-[6px] font-[Poppins,sans-serif] text-[14px] transition-all outline-none focus:border-[#ff6b8a] focus:shadow-[0_0_0_3px_rgba(255,77,109,0.12)] box-border bg-white dark:bg-[#3a1828] text-[#1f1f1f] dark:text-[#f5e6ea]";
+  const labelCls = "block text-[13px] font-medium mb-1 text-[#444] dark:text-[#d4b8c0]";
 
   return (
-    <div className="m-0 font-[Poppins,sans-serif] bg-[#fff5f9] text-[#1f1f1f]">
+    <div className="min-h-screen font-[Poppins,sans-serif] bg-[#fff5f9] dark:bg-[#1a0a10] text-[#1f1f1f] dark:text-[#f5e6ea]">
       <Navbar />
       <div className="flex gap-6 max-w-[1000px] mx-auto mt-10 px-5 flex-wrap">
 
         {/* BILLING FORM */}
-        <div className="flex-[2] bg-white p-6 rounded-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.08)] min-w-[280px]">
-          <h2 className="text-[24px] font-semibold mb-4 text-[#1f1f1f]">Billing Details</h2>
+        <div className="flex-[2] bg-white dark:bg-[#2a1020] p-6 rounded-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.08)] border border-[#ffe0ee] dark:border-[#4a2030] min-w-[280px]">
+          <h2 className="text-[24px] font-semibold mb-4 text-[#1f1f1f] dark:text-[#f5e6ea]">Billing Details</h2>
           <form onSubmit={placeOrder}>
             <div className="mb-3.5"><label className={labelCls}>Full Name</label><input id="fname" type="text" value={form.fname} onChange={h} placeholder="Full Name" required className={inputCls} /></div>
             <div className="mb-3.5"><label className={labelCls}>Phone Number</label><input id="phone" type="tel" value={form.phone} onChange={h} placeholder="03xxxxxxxxx" required className={inputCls} /></div>
@@ -66,17 +66,17 @@ function Checkout() {
         </div>
 
         {/* ORDER SUMMARY */}
-        <div className="flex-1 bg-[#fff0f5] p-6 rounded-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.08)] h-fit min-w-[220px]">
-          <h3 className="text-[18px] font-semibold mb-3 text-[#1f1f1f]">Order Summary</h3>
+        <div className="flex-1 bg-[#fff0f5] dark:bg-[#2a1020] p-6 rounded-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.08)] border border-[#ffe0ee] dark:border-[#4a2030] h-fit min-w-[220px]">
+          <h3 className="text-[18px] font-semibold mb-3 text-[#1f1f1f] dark:text-[#f5e6ea]">Order Summary</h3>
           <div>
             {cart.length === 0
-              ? <p className="text-[14px] text-[#444]">No items</p>
-              : cart.map((item, i) => <p key={i} className="text-[14px] text-[#444] mb-2">{item.name} — Rs. {item.price}</p>)
+              ? <p className="text-[14px] text-[#444] dark:text-[#d4b8c0]">No items</p>
+              : cart.map((item, i) => <p key={i} className="text-[14px] text-[#444] dark:text-[#d4b8c0] mb-2">{item.name} — Rs. {item.price}</p>)
             }
           </div>
-          <p className="text-[14px] text-[#444] mb-2">Subtotal: Rs. {subtotal}</p>
-          <p className="text-[14px] text-[#444] mb-2">Delivery: Rs. {delivery}</p>
-          <h3 className="text-[18px] font-semibold text-[#1f1f1f]">Total: Rs. {subtotal + delivery}</h3>
+          <p className="text-[14px] text-[#444] dark:text-[#d4b8c0] mb-2">Subtotal: Rs. {subtotal}</p>
+          <p className="text-[14px] text-[#444] dark:text-[#d4b8c0] mb-2">Delivery: Rs. {delivery}</p>
+          <h3 className="text-[18px] font-semibold text-[#1f1f1f] dark:text-[#f5e6ea]">Total: Rs. {subtotal + delivery}</h3>
         </div>
       </div>
 

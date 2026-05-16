@@ -18,16 +18,17 @@ function Signup() {
   }
 
   const h = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.id]: e.target.value });
-  const inputCls = "w-full px-3 py-2.5 border border-[#ffd6e0] rounded-[6px] font-[Poppins,sans-serif] text-[14px] transition-all outline-none focus:border-[#ff6b8a] focus:shadow-[0_0_0_3px_rgba(255,77,109,0.12)] box-border";
-  const labelCls = "block text-[13px] font-medium mb-1 text-[#444]";
+
+  const inputCls = "w-full px-3 py-2.5 border border-[#ffd6e0] dark:border-[#4a2030] rounded-[6px] font-[Poppins,sans-serif] text-[14px] transition-all outline-none focus:border-[#ff6b8a] focus:shadow-[0_0_0_3px_rgba(255,77,109,0.12)] box-border bg-white dark:bg-[#3a1828] text-[#1f1f1f] dark:text-[#f5e6ea]";
+  const labelCls = "block text-[13px] font-medium mb-1 text-[#444] dark:text-[#d4b8c0]";
 
   return (
-    <div className="m-0 font-[Poppins,sans-serif] bg-[#fff5f9] text-[#1f1f1f]">
+    <div className="min-h-screen font-[Poppins,sans-serif] bg-[#fff5f9] dark:bg-[#1a0a10] text-[#1f1f1f] dark:text-[#f5e6ea]">
       <Navbar />
 
-      <div className="max-w-[480px] mx-auto mt-10 bg-white p-8 rounded-[15px] shadow-[0_4px_20px_rgba(0,0,0,0.09)]">
-        <h2 className="text-[24px] font-semibold mb-2 text-[#1f1f1f]">Create Account 💄</h2>
-        <p className="text-[14px] text-[#444] mb-4">Join E-commerce Cosmetics Store and enjoy exclusive deals.</p>
+      <div className="max-w-[480px] mx-auto mt-10 bg-white dark:bg-[#2a1020] p-8 rounded-[15px] shadow-[0_4px_20px_rgba(0,0,0,0.09)] border border-[#ffe0ee] dark:border-[#4a2030]">
+        <h2 className="text-[24px] font-semibold mb-2 text-[#1f1f1f] dark:text-[#f5e6ea]">Create Account 💄</h2>
+        <p className="text-[14px] text-[#444] dark:text-[#d4b8c0] mb-4">Join E-commerce Cosmetics Store and enjoy exclusive deals.</p>
         <form onSubmit={handleSignup}>
           <div className="mb-3.5"><label className={labelCls}>Full Name</label><input id="name" type="text" value={form.name} onChange={h} placeholder="Enter your full name" required className={inputCls} /></div>
           <div className="mb-3.5"><label className={labelCls}>Email Address</label><input id="email" type="email" value={form.email} onChange={h} placeholder="Enter your email" required className={inputCls} /></div>
@@ -36,7 +37,7 @@ function Signup() {
           <button type="submit" className="w-full mt-2 px-4 py-2.5 bg-gradient-to-br from-[#ff6b9d] to-[#ff8fb8] text-white font-semibold rounded-[20px] border-none cursor-pointer text-[13px] transition-all hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(255,107,157,0.45)]">Create Account</button>
         </form>
         <br />
-        <p className="text-[14px] text-[#444]">Already have an account? <Link to="/login" className="text-[#ff6b9d] hover:underline">Login here</Link></p>
+        <p className="text-[14px] text-[#444] dark:text-[#d4b8c0]">Already have an account? <Link to="/login" className="text-[#ff6b9d] hover:underline">Login here</Link></p>
       </div>
 
       <footer className="bg-gradient-to-br from-[#ff6b9d] to-[#ff8fb8] text-white pt-10 pb-5 px-5 mt-16 text-center">
