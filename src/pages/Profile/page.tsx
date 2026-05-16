@@ -57,8 +57,8 @@ function Profile() {
     if (editForm.password && editForm.password !== editForm.confirm) { alert('Passwords do not match'); return; }
     if (editForm.password && editForm.password.length < 6) { alert('Password must be at least 6 characters'); return; }
     const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
-    const idx = users.findIndex(u => u.email === user.email);
-    const updated: User = { name: editForm.name, email: editForm.email, password: editForm.password || user.password };
+    const idx = users.findIndex(u => u.email === user!.email);
+    const updated: User = { name: editForm.name, email: editForm.email, password: editForm.password || user!.password };
     if (idx > -1) { users[idx] = updated; localStorage.setItem('users', JSON.stringify(users)); }
     localStorage.setItem('loggedIn', JSON.stringify(updated));
     setUser(updated);
